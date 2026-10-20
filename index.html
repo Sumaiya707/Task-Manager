@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My To Do List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="page-container">
+        <div class="task-card">
+
+            <h1>My To Do List</h1>
+            <p class="subtitle">Stay organized and get things done.</p>
+
+            <form id="taskform">
+                <input
+                    id="taskInput"
+                    type="text"
+                    placeholder="Add a new task..."
+                    aria-label="Add a new task">
+
+                <button id="addButton" type="submit">Add</button>
+            </form>
+
+            <p id="result" role="status"></p>
+
+            <div class="filter-buttons">
+                <button id="allFilter" class="filter-button active"
+                    data-filter="all" type="button">All</button>
+
+                <button id="activeFilter" class="filter-button"
+                    data-filter="active" type="button">Active</button>
+
+                <button id="completedFilter" class="filter-button"
+                    data-filter="completed" type="button">Completed</button>
+            </div>
+
+            <ul id="taskList"></ul>
+
+            <p id="noTask">No tasks to show.</p>
+
+            <div class="task-footer">
+                <p id="taskCount">0 active tasks</p>
+
+                <button id="clearCompleted" type="button">
+                    Clear Completed
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
