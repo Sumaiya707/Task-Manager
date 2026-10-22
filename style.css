@@ -287,8 +287,72 @@ body.dark-mode #themeToggle {
     background-color: #202b40;
     border-color: #34435d;
 }
-
-/* Empty-task message */
 body.dark-mode #noTask {
     color: #93a4c0;
+}
+
+@media (max-width: 600px) {
+
+    .page-container {
+        padding: 20px 12px;
+        align-items: flex-start;
+    }
+
+    .task-card {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 24px 16px;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+    .subtitle {
+        font-size: 16px;
+        margin-bottom: 24px;
+    }
+
+    #taskform {
+        gap: 8px;
+    }
+
+    #taskInput {
+        padding: 12px 10px;
+        font-size: 15px;
+        min-width: 0;
+    }
+
+    #addButton {
+        padding: 12px 14px;
+        font-size: 15px;
+        flex-shrink: 0;
+    }
+    .filter-buttons {
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .filter-button {
+        padding: 10px 14px;
+        font-size: 14px;
+    }
+
+
+    #taskList li {
+        gap: 10px;
+        padding: 10px;
+    }
+
+   
+    .task-text {
+        font-size: 15px;
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+   
+    .task-footer {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
 }
