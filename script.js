@@ -49,6 +49,7 @@ if (!Array.isArray(tasks)) {
         { id: 51, text: "Save tasks in local storage", completed: false },
         { id: 64, text: "Make it look good", completed: false }
     ];
+    localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
 tasks.forEach(function(item) {
@@ -117,6 +118,7 @@ for (let i = 0; i < tasks.length; i++) {
     taskList.appendChild(li);
 }
     updateNoTaskMessage();
+    updateFilterButtons();
 
 function filterTasks() {
     const items = taskList.querySelectorAll("li");
@@ -132,8 +134,13 @@ function filterTasks() {
             li.style.display = checkbox.checked ? "" : "none";
         }
     });
+    updateFilterButtons();
 }
-
+function updateFilterButtons() {
+    allFilter.classList.toggle("active", currentFilter === "all");
+    activeFilter.classList.toggle("active", currentFilter === "active");
+    completedFilter.classList.toggle("active", currentFilter === "completed");
+}
 function updateNoTaskMessage() {
     if (taskList.children.length === 0) {
         noTask.style.display = "block";
@@ -203,5 +210,6 @@ for (let i = 0; i < tasks.length; i++) {
     taskList.appendChild(li);
 }
 taskInput.value = "";
-
+updateNoTaskMessage();
+filterTasks();
 });
