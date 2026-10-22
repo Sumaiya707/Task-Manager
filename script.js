@@ -1,4 +1,3 @@
-
 const taskForm = document.getElementById("taskform");
 const taskInput = document.getElementById("taskInput");
 const taskList = document.getElementById("taskList");
@@ -37,15 +36,19 @@ themeToggle.addEventListener("click", function() {
 
 let tasks = JSON.parse(localStorage.getItem("tasks")) ||
  [
-    { id: 2, text: "Learn JavaScript" },
-    { id: 32, text: "Build a to-do list" },
-    { id: 42, text: "Practice DOM manipulation" },
-    { id: 51, text: "Save tasks in local storage" },
-    { id: 64, text: "Make it look good" }
+    { id: 2, text: "Learn JavaScript", completed: false },
+    { id: 32, text: "Build a to-do list" ,completed: false},
+    { id: 42, text: "Practice DOM manipulation" ,completed: false},
+    { id: 51, text: "Save tasks in local storage", completed: false },
+    { id: 64, text: "Make it look good" ,completed: false}
 ];
+tasks.forEach(function(item) {
+    if (item.completed === undefined) {
+        item.completed = false;
+    }
+});
 
-
-let newId = 6;
+let newId = Date.now();
 let currentFilter = "all";
 allFilter.addEventListener("click", function() {
     currentFilter = "all";
@@ -134,12 +137,12 @@ taskForm.addEventListener("submit", function(event) {
     event.preventDefault();
 
 const taskText = taskInput.value.trim();
-if (taskText === "") {
-    alert("Please enter a task!");
+if (taskText === "")
+     {
     return;
-}
+     }
 tasks.push({
-    id: newId++,
+    id: crypto.randomUUID(),
     text: taskText,
     completed: false
 });
@@ -158,11 +161,21 @@ for (let i = 0; i < tasks.length; i++) {
     const span = document.createElement("span");
     span.className = "task-text";
     span.textContent = tasks[i].text;
+     checkbox.checked = tasks[i].completed;
+    span.classList.toggle("completed", checkbox.checked);
 
+   
     checkbox.addEventListener("change", function() {
-        span.classList.toggle("completed");
-        filterTasks();
+    const task = tasks.find(function(item) {
+        return item.id === taskId;
     });
+
+    task.completed = checkbox.checked;
+
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    span.classList.toggle("completed", checkbox.checked);
+    filterTasks();
+});
 
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "🗑";
