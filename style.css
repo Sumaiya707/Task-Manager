@@ -217,3 +217,70 @@ button:focus-visible {
     outline: 2px solid #8bdc45;
     outline-offset: 3px;
 }
+
+body.dark-mode {
+    background-color: #0b1220;
+    color: #f5f7ff;
+}
+
+
+body.dark-mode .page-container {
+    background-color: #111b2d;
+    border-color: #2c3b56;
+}
+
+
+body.dark-mode #taskInput {
+    background-color: #151f32;
+    color: #f5f7ff;
+    border-color: #2c3b56;
+}
+
+body.dark-mode #taskInput::placeholder {
+    color: #93a4c0;
+}
+
+
+body.dark-mode #taskList li {
+    background-color: #111b2d;
+    border-color: #2c3b56;
+    color: #f5f7ff;
+}
+
+
+body.dark-mode .task-text {
+    color: #f5f7ff;
+}
+
+
+body.dark-mode .task-text.completed {
+    color: #93a4c0;
+}
+
+
+body.dark-mode #allFilter,
+body.dark-mode #activeFilter,
+body.dark-mode #completedFilter {
+    background-color: #172237;
+    color: #f5f7ff;
+    border-color: #2c3b56;
+}
+
+
+body.dark-mode #allFilter.active,
+body.dark-mode #activeFilter.active,
+body.dark-mode #completedFilter.active {
+    background-color: #c4f536;
+    color: #101820;
+}
+
+
+body.dark-mode #themeToggle {
+    background-color: #202b40;
+    border-color: #34435d;
+}
+
+/* Empty-task message */
+body.dark-mode #noTask {
+    color: #93a4c0;
+}
