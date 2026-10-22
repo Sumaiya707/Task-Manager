@@ -44,7 +44,6 @@ let tasks = JSON.parse(localStorage.getItem("tasks")) ||
     { id: 64, text: "Make it look good" }
 ];
 
-console.log(tasks.length);
 
 let newId = 6;
 let currentFilter = "all";
@@ -60,9 +59,6 @@ completedFilter.addEventListener("click", function() {
     currentFilter = "completed";
     filterTasks();
 });
-
-console.log(tasks[3].id);
-
 
 for (let i = 0; i < tasks.length; i++) {
 
@@ -104,11 +100,6 @@ for (let i = 0; i < tasks.length; i++) {
     updateNoTaskMessage();
 });
 
-    
-    deleteButton.addEventListener("click", function() {
-        li.remove();
-    });
-
     li.append(checkbox, span, deleteButton);
 
     taskList.appendChild(li);
@@ -131,7 +122,6 @@ function filterTasks() {
     });
 }
 
-console.log(taskList);
 function updateNoTaskMessage() {
     if (taskList.children.length === 0) {
         noTask.style.display = "block";
@@ -177,10 +167,15 @@ for (let i = 0; i < tasks.length; i++) {
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "🗑";
     deleteButton.className = "delete-button";
-
     deleteButton.addEventListener("click", function() {
-        li.remove();
+    tasks = tasks.filter(function(item) {
+        return item.id !== taskId;
     });
+
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    li.remove();
+    updateNoTaskMessage();
+});
 
     li.append(checkbox, span, deleteButton);
     taskList.appendChild(li);
