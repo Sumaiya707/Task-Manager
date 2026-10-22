@@ -34,14 +34,23 @@ themeToggle.addEventListener("click", function() {
 
 });
 
-let tasks = JSON.parse(localStorage.getItem("tasks")) ||
- [
-    { id: 2, text: "Learn JavaScript", completed: false },
-    { id: 32, text: "Build a to-do list" ,completed: false},
-    { id: 42, text: "Practice DOM manipulation" ,completed: false},
-    { id: 51, text: "Save tasks in local storage", completed: false },
-    { id: 64, text: "Make it look good" ,completed: false}
-];
+let tasks;
+
+try {
+    tasks = JSON.parse(localStorage.getItem("tasks"));
+} catch (error) {
+    tasks = null;
+}
+if (!Array.isArray(tasks)) {
+    tasks = [
+        { id: 2, text: "Learn JavaScript", completed: false },
+        { id: 32, text: "Build a to-do list", completed: false },
+        { id: 42, text: "Practice DOM manipulation", completed: false },
+        { id: 51, text: "Save tasks in local storage", completed: false },
+        { id: 64, text: "Make it look good", completed: false }
+    ];
+}
+
 tasks.forEach(function(item) {
     if (item.completed === undefined) {
         item.completed = false;
