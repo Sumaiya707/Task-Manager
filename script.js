@@ -6,6 +6,33 @@ const noTask = document.getElementById("noTask");
 const allFilter = document.getElementById("allFilter");
 const activeFilter = document.getElementById("activeFilter");
 const completedFilter = document.getElementById("completedFilter");
+const themeToggle = document.getElementById("themeToggle");
+
+
+if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark-mode");
+    themeToggle.textContent = "☀️";
+    themeToggle.setAttribute("aria-label", "Switch to light mode");
+} else     
+{
+    themeToggle.textContent = "🌙";
+    themeToggle.setAttribute("aria-label", "Switch to dark mode");
+}
+themeToggle.addEventListener("click", function() {
+
+    document.body.classList.toggle("dark-mode");
+
+    if (document.body.classList.contains("dark-mode")) {
+        themeToggle.textContent = "☀️";
+        themeToggle.setAttribute("aria-label", "Switch to light mode");
+        localStorage.setItem("theme", "dark");
+    } else {
+        themeToggle.textContent = "🌙";
+        themeToggle.setAttribute("aria-label", "Switch to dark mode");
+        localStorage.setItem("theme", "light");
+    }
+
+});
 
 let tasks = JSON.parse(localStorage.getItem("tasks")) ||
  [
@@ -39,7 +66,6 @@ console.log(tasks[3].id);
 for (let i = 0; i < tasks.length; i++) {
 
     const li = document.createElement("li");
-
     
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
@@ -49,7 +75,6 @@ for (let i = 0; i < tasks.length; i++) {
     const span = document.createElement("span");
     span.className = "task-text";
     span.textContent = tasks[i].text;
-
     
     checkbox.addEventListener("change", function() {
         span.classList.toggle("completed");
