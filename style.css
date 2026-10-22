@@ -197,3 +197,23 @@ button:focus-visible {
 #clearCompleted:hover {
     background: #1f0103;
 }
+/* Light/Dark mode toggle button */
+#themeToggle {
+    width: 44px;
+    height: 44px;
+    border: 1px solid #d5dfd7;
+    border-radius: 12px;
+    background-color: #ffffff;
+    font-size: 22px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#themeToggle:hover {
+    transform: scale(1.05);
+}
+
+#themeToggle:focus-visible {
+    outline: 2px solid #8bdc45;
+    outline-offset: 3px;
+}
