@@ -1,4 +1,4 @@
-alert("JavaScript is working!");
+
 const taskForm = document.getElementById("taskform");
 const taskInput = document.getElementById("taskInput");
 const taskList = document.getElementById("taskList");
@@ -21,9 +21,10 @@ if (localStorage.getItem("theme") === "dark") {
 //whatt happens when u click the button?? //
 themeToggle.addEventListener("click", function() {
 
-    document.body.classList.toggle("dark-mode"); //html e CSS er Class thakte pare, dark-mode is there or not ?? the toggle decide then change ,
+    document.body.classList.toggle("dark-mode"); 
+    //adds the class if missing, or removes it if present. //html e CSS er Class thakte pare, dark-mode is there or not ?? the toggle decide then change ,
 
-    if (document.body.classList.contains("dark-mode")) // 
+    if (document.body.classList.contains("dark-mode")) //classList.contains() — check whether a class exists. 
          {
         themeToggle.textContent = "☀️";
         localStorage.setItem("theme", "dark");
@@ -66,24 +67,42 @@ console.log(tasks[3].id);
 for (let i = 0; i < tasks.length; i++) {
 
     const li = document.createElement("li");
+    const taskId = tasks[i].id;
     
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.className = "task-checkbox";
+    checkbox.checked = tasks[i].completed || false;
 
     
     const span = document.createElement("span");
     span.className = "task-text";
     span.textContent = tasks[i].text;
+    span.classList.toggle("completed", checkbox.checked);
 
     checkbox.addEventListener("change", function() {
-        span.classList.toggle("completed");
-        filterTasks();
+    const task = tasks.find(function(item) {
+        return item.id === taskId;
     });
+    task.completed = checkbox.checked;
+
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    span.classList.toggle("completed", checkbox.checked);
+    filterTasks();
+});
     
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "🗑";
     deleteButton.className = "delete-button";
+    deleteButton.addEventListener("click", function() {
+    tasks = tasks.filter(function(item) {
+        return item.id !== taskId;
+    });
+
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    li.remove();
+    updateNoTaskMessage();
+});
 
     
     deleteButton.addEventListener("click", function() {
@@ -94,6 +113,7 @@ for (let i = 0; i < tasks.length; i++) {
 
     taskList.appendChild(li);
 }
+    updateNoTaskMessage();
 
 function filterTasks() {
     const items = taskList.querySelectorAll("li");
@@ -112,20 +132,34 @@ function filterTasks() {
 }
 
 console.log(taskList);
-
+function updateNoTaskMessage() {
+    if (taskList.children.length === 0) {
+        noTask.style.display = "block";
+    } else {
+        noTask.style.display = "none";
+    }
+}
 taskForm.addEventListener("submit", function(event) {
 
     event.preventDefault();
 
-    const taskText = taskInput.value;
-    tasks.push({
-        id: newId++, text:taskText
-    });
+const taskText = taskInput.value.trim();
+if (taskText === "") {
+    alert("Please enter a task!");
+    return;
+}
+tasks.push({
+    id: newId++,
+    text: taskText,
+    completed: false
+});
+
     localStorage.setItem("tasks", JSON.stringify(tasks));
     taskList.innerHTML = "";
 
 for (let i = 0; i < tasks.length; i++) {
     const li = document.createElement("li");
+    const taskId = tasks[i].id;
 
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
