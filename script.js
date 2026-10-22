@@ -8,27 +8,27 @@ const activeFilter = document.getElementById("activeFilter");
 const completedFilter = document.getElementById("completedFilter");
 const themeToggle = document.getElementById("themeToggle");
 
+//what happens when the website opens ??????//
 
 if (localStorage.getItem("theme") === "dark") {
     document.body.classList.add("dark-mode");
     themeToggle.textContent = "☀️";
-    themeToggle.setAttribute("aria-label", "Switch to light mode");
 } else     
 {
     themeToggle.textContent = "🌙";
-    themeToggle.setAttribute("aria-label", "Switch to dark mode");
 }
+
+//whatt happens when u click the button?? //
 themeToggle.addEventListener("click", function() {
 
-    document.body.classList.toggle("dark-mode");
+    document.body.classList.toggle("dark-mode"); //html e CSS er Class thakte pare, dark-mode is there or not ?? the toggle decide then change ,
 
-    if (document.body.classList.contains("dark-mode")) {
+    if (document.body.classList.contains("dark-mode")) // 
+         {
         themeToggle.textContent = "☀️";
-        themeToggle.setAttribute("aria-label", "Switch to light mode");
         localStorage.setItem("theme", "dark");
     } else {
         themeToggle.textContent = "🌙";
-        themeToggle.setAttribute("aria-label", "Switch to dark mode");
         localStorage.setItem("theme", "light");
     }
 
@@ -75,7 +75,7 @@ for (let i = 0; i < tasks.length; i++) {
     const span = document.createElement("span");
     span.className = "task-text";
     span.textContent = tasks[i].text;
-    
+
     checkbox.addEventListener("change", function() {
         span.classList.toggle("completed");
         filterTasks();
