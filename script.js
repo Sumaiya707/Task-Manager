@@ -94,6 +94,7 @@ for (let i = 0; i < tasks.length; i++) {
         return item.id === taskId;
     });
     task.completed = checkbox.checked;
+    updateTaskCount();
 
     localStorage.setItem("tasks", JSON.stringify(tasks));
     span.classList.toggle("completed", checkbox.checked);
@@ -111,6 +112,7 @@ for (let i = 0; i < tasks.length; i++) {
     localStorage.setItem("tasks", JSON.stringify(tasks));
     li.remove();
     updateNoTaskMessage();
+      updateTaskCount();
 });
 
     li.append(checkbox, span, deleteButton);
@@ -119,6 +121,7 @@ for (let i = 0; i < tasks.length; i++) {
 }
     updateNoTaskMessage();
     updateFilterButtons();
+    updateTaskCount();
 
 function filterTasks() {
     const items = taskList.querySelectorAll("li");
@@ -148,6 +151,18 @@ function updateNoTaskMessage() {
         noTask.style.display = "none";
     }
 }
+
+
+function updateTaskCount() {
+    const taskCount = document.getElementById("taskCount");
+
+    const activeTasks = tasks.filter(function(item) {
+        return item.completed === false;
+    });
+
+    taskCount.textContent = activeTasks.length + " active tasks";
+}
+
 taskForm.addEventListener("submit", function(event) {
 
     event.preventDefault();
@@ -187,6 +202,7 @@ for (let i = 0; i < tasks.length; i++) {
     });
 
     task.completed = checkbox.checked;
+    updateTaskCount();
 
     localStorage.setItem("tasks", JSON.stringify(tasks));
     span.classList.toggle("completed", checkbox.checked);
@@ -202,8 +218,9 @@ for (let i = 0; i < tasks.length; i++) {
     });
 
     localStorage.setItem("tasks", JSON.stringify(tasks));
-    li.remove();
-    updateNoTaskMessage();
+   li.remove();
+   updateNoTaskMessage();
+   updateTaskCount();
 });
 
     li.append(checkbox, span, deleteButton);
@@ -212,4 +229,5 @@ for (let i = 0; i < tasks.length; i++) {
 taskInput.value = "";
 updateNoTaskMessage();
 filterTasks();
+updateTaskCount();
 });
