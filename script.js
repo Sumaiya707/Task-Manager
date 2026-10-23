@@ -103,19 +103,30 @@ function renderTasks(showDeleteMessage) {
 
     taskList.innerHTML = "";
 
-    for (let i = 0; i < tasks.length; i++) {
+    const filteredTasks = tasks.filter(function(task) {
+        if (currentFilter === "active") {
+            return task.completed === false;
+        }
+
+        if (currentFilter === "completed") {
+            return task.completed === true;
+        }
+
+        return true;
+    });
+
+    for (let i = 0; i < filteredTasks.length; i++) {
         const li = document.createElement("li");
-        const taskId = tasks[i].id;
-        li.dataset.taskId = taskId;
+        li.dataset.taskId = filteredTasks[i].id;
 
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
         checkbox.className = "task-checkbox";
-        checkbox.checked = tasks[i].completed || false;
+        checkbox.checked = filteredTasks[i].completed || false;
 
         const span = document.createElement("span");
         span.className = "task-text";
-        span.textContent = tasks[i].text;
+        span.textContent = filteredTasks[i].text;
         span.classList.toggle("completed", checkbox.checked);
 
         const deleteButton = document.createElement("button");
@@ -197,21 +208,9 @@ taskList.addEventListener("click", function(event) {
 // Filter tasks
 
 function filterTasks() {
-    const items = taskList.querySelectorAll("li");
-
-    items.forEach(function(li) {
-        const checkbox = li.querySelector("input");
-
-        if (currentFilter === "all") {
-            li.style.display = "";
-        } else if (currentFilter === "active") {
-            li.style.display = checkbox.checked ? "none" : "";
-        } else {
-            li.style.display = checkbox.checked ? "" : "none";
-        }
-    });
-
+    renderTasks(shouldShowDeleteMessage);
     updateFilterButtons();
+    updateNoTaskMessage();
 }
 
 // Update the selected filter button
