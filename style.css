@@ -1,114 +1,212 @@
+/* 1. Global styles and theme variables */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+:root {
+    color-scheme: light;
+    --page-bg: #f5f6f9;
+    --card-bg: #ffffff;
+    --task-bg: #ffffff;
+    --input-bg: #ffffff;
+    --filter-bg: #f1f2f6;
+    --filter-hover-bg: #e8ebef;
+    --active-filter-bg: #e0f9a6;
+
+    --text-color: #12101b;
+    --muted-text: #747d91;
+    --border-color: #e0e4eb;
+
+    --primary-color: #c5fa36;
+    --primary-hover: #b4ec20;
+    --primary-text: #151b33;
+
+    --danger-color: #f0444b;
+    --danger-hover: #c62835;
+    --danger-hover-bg: #ffe0e2;
+
+    --focus-color: #759f00;
+    --success-color: #52642c;
+
+    --card-shadow: 0 20px 50px rgba(30, 40, 60, 0.08);
+}
+
+body.dark-mode {
+    color-scheme: dark;
+
+    --page-bg: #0b1220;
+    --card-bg: #111b2d;
+    --task-bg: #111b2d;
+    --input-bg: #151f32;
+    --filter-bg: #172237;
+    --filter-hover-bg: #263650;
+    --active-filter-bg: #c4f536;
+
+    --text-color: #f5f7ff;
+    --muted-text: #a4b2ca;
+    --border-color: #2c3b56;
+
+    --primary-color: #c4f536;
+    --primary-hover: #b4e52c;
+    --primary-text: #101820;
+
+    --danger-color: #ff626b;
+    --danger-hover: #ff9ba1;
+    --danger-hover-bg: #42212a;
+
+    --focus-color: #c4f536;
+    --success-color: #c4f536;
+
+    --card-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+}
 
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #fcfbfb9d;
-    color: #12101b;
+    background: var(--page-bg);
+    color: var(--text-color);
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
-
+/* 2. Main layout */
 .page-container {
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 90px 200px;
+    padding: 3rem 1.5rem;
 }
-
 .task-card {
     width: 100%;
     max-width: 920px;
-    background: #ffffffc2;
-    padding: 40px 40px;
+    background: var(--card-bg);
+    padding: 2.5rem;
+    border: 1px solid var(--border-color);
     border-radius: 20px;
-    box-shadow: 0 20px 50px rgba(30, 40, 60, 0.08);
+    box-shadow: var(--card-shadow);
 }
-
+.heading-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+.heading-row h1 {
+    min-width: 0;
+}
 h1 {
     margin: 0;
-    font-size: 40px;
+    font-size: 2.5rem;
     font-weight: 700;
+    color: var(--text-color);
 }
-
 .subtitle {
-    margin: 10px 0 35px;
-    color: #747d91;
-    font-size: 18px;
+    margin: 0.625rem 0 2.1875rem;
+    color: var(--muted-text);
+    font-size: 1.125rem;
+    line-height: 1.5;
 }
+/* 3. Task input and Add button */
 
 #taskform {
     display: flex;
-    gap: 14px;
-    margin-bottom: 22px;
+    gap: 0.875rem;
+    margin-bottom: 1.375rem;
 }
 
 #taskInput {
     flex: 1;
     min-width: 0;
-    padding: 16px 18px;
-    font-size: 17px;
-    border: 1px solid #dfe3eb;
+    padding: 1rem 1.125rem;
+    font-family: inherit;
+    font-size: 1.0625rem;
+    color: var(--text-color);
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
     border-radius: 10px;
     outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#taskInput::placeholder {
+    color: var(--muted-text);
 }
 
 #taskInput:focus {
-    border-color: #9bd900;
-    box-shadow: 0 0 0 3px rgba(155, 217, 0, 0.15);
+    border-color: var(--focus-color);
+    box-shadow: 0 0 0 3px rgba(117, 159, 0, 0.15);
 }
 
 #addButton {
-    padding: 15px 30px;
+    flex-shrink: 0;
+    padding: 0.9375rem 1.875rem;
     border: none;
     border-radius: 10px;
-    background: #c5fa36;
-    color: #151b33;
-    font-size: 17px;
+    background: var(--primary-color);
+    color: var(--primary-text);
+    font-family: inherit;
+    font-size: 1.0625rem;
     font-weight: bold;
     cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 #addButton:hover {
-    background: #b4ec20;
+    background: var(--primary-hover);
 }
 
-button:focus-visible {
-    outline: 3px solid #759f00;
-    outline-offset: 3px;
+#addButton:active {
+    transform: scale(0.98);
 }
+
+/* 4. Status messages */
 
 #result {
     min-height: 0;
     margin: 0;
-    color: #52642c;
-    font-size: 14px;
+    color: var(--success-color);
+    font-size: 0.875rem;
 }
+
+#noTask {
+    display: none;
+    padding: 6.25rem 0;
+    text-align: center;
+    color: var(--muted-text);
+}
+
+/* 5. Task filters */
 
 .filter-buttons {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
-    margin: 20px 0 28px;
+    gap: 0.75rem;
+    margin: 1.25rem 0 1.75rem;
 }
 
 .filter-button {
-    padding: 12px 22px;
-    border: none;
+    padding: 0.75rem 1.375rem;
+    border: 1px solid transparent;
     border-radius: 10px;
-    background: #f1f2f6;
-    color: #20263b;
-    font-size: 16px;
+    background: var(--filter-bg);
+    color: var(--text-color);
+    font-family: inherit;
+    font-size: 1rem;
     cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 .filter-button:hover {
-    background: #e8ebef;
+    background: var(--filter-hover-bg);
 }
 
 .filter-button.active {
-    background: #e0f9a6;
+    background: var(--active-filter-bg);
     color: #17220a;
     font-weight: bold;
 }
+
+/* 6. Task list and completion state */
 
 #taskList {
     list-style: none;
@@ -119,17 +217,19 @@ button:focus-visible {
 #taskList li {
     display: flex;
     align-items: center;
-    gap: 18px;
-    margin-bottom: 12px;
-    padding: 10px 15px;
-    border: 1px solid #e0e4eb;
+    gap: 1.125rem;
+    margin-bottom: 0.75rem;
+    padding: 0.625rem 0.9375rem;
+    border: 1px solid var(--border-color);
     border-radius: 12px;
-    background: #ffffff;
+    background: var(--task-bg);
+    color: var(--text-color);
+    transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .task-checkbox {
-    width: 22px;
-    height: 22px;
+    width: 1.375rem;
+    height: 1.375rem;
     flex-shrink: 0;
     accent-color: #91cf00;
     cursor: pointer;
@@ -139,220 +239,192 @@ button:focus-visible {
     flex: 1;
     min-width: 0;
     overflow-wrap: anywhere;
-    font-size: 17px;
+    font-size: 1.0625rem;
     line-height: 1.5;
+    color: var(--text-color);
 }
 
 .task-text.completed {
-    color: #969dad;
+    color: var(--muted-text);
     text-decoration: line-through;
 }
 
+/* 7. Delete button */
+
 .delete-button {
-    flex-shrink: 0; 
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: 0.5rem;
     border: none;
+    border-radius: 8px;
     background: transparent;
-    color: #ff5159;
-    font-size: 25px;
+    color: var(--danger-color);
+    font-size: 1.5625rem;
+    line-height: 1;
     cursor: pointer;
-    padding: 8px 8px;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .delete-button:hover {
-    color: #470d7e;
+    color: var(--danger-hover);
+    background: var(--danger-hover-bg);
 }
 
-#noTask {
-    display: none ;
-    padding: 100px 0;
-    text-align: center;
-    color: #204ebb;
-}
+/* 8. Footer and task counter */
 
 .task-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 15px;
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid #e4e7ed;
+    gap: 0.9375rem;
+    margin-top: 1.875rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border-color);
 }
 
 #taskCount {
-    color: #747d91;
-    font-size: 16px;
+    color: var(--muted-text);
+    font-size: 1rem;
 }
 
 #clearCompleted {
-    padding: 12px 18px;
-    border: none;
+    padding: 0.75rem 1.125rem;
+    border: 1px solid transparent;
     border-radius: 10px;
-    background: #fff0f1;
-    color: #f0444b;
-    font-size: 15px;
+    background: var(--danger-hover-bg);
+    color: var(--danger-color);
+    font-family: inherit;
+    font-size: 0.9375rem;
     cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 #clearCompleted:hover {
-    background: #1f0103;
+    background: var(--danger-color);
+    color: #ffffff;
 }
-/* Light/Dark mode toggle button */
+
+body.dark-mode #clearCompleted:hover {
+    background: var(--danger-hover-bg);
+    color: #ffb0b5;
+    border-color: var(--danger-color);
+}
+
+/* 9. Theme toggle */
+
 #themeToggle {
     width: 44px;
     height: 44px;
-    border: 1px solid #d5dfd7;
+    flex-shrink: 0;
+    border: 1px solid var(--border-color);
     border-radius: 12px;
-    background-color: #ffffff;
-    font-size: 22px;
+    background: var(--task-bg);
+    color: var(--text-color);
+    font-size: 1.375rem;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
+    transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 #themeToggle:hover {
     transform: scale(1.05);
 }
 
-#themeToggle:focus-visible {
-    outline: 2px solid #8bdc45;
+body.dark-mode #themeToggle {
+    background: var(--filter-bg);
+}
+
+/* 10. Keyboard focus */
+
+button:focus-visible,
+input:focus-visible {
+    outline: 3px solid var(--focus-color);
     outline-offset: 3px;
 }
 
-body.dark-mode {
-    background-color: #0b1220;
-    color: #f5f7ff;
-}
+/* 11. Tablet layout */
 
-body.dark-mode .task-card {
-    width: 100%;
-    max-width: 920px;
-    background: #061125;
-    padding: 40px 40px;
-    border-radius: 20px;
-    box-shadow: 0 20px 50px rgba(30, 40, 60, 0.08);
-}
-
-body.dark-mode .page-container {
-    background-color: #061125;
-    border-color: #2c3b56;
-}
-
-
-body.dark-mode #taskInput {
-    background-color: #151f32;
-    color: #f5f7ff;
-    border-color: #2c3b56;
-}
-
-body.dark-mode #taskInput::placeholder {
-    color: #93a4c0;
-}
-
-
-body.dark-mode #taskList li {
-    background-color: #111b2d;
-    border-color: #2c3b56;
-    color: #f5f7ff;
-}
-
-
-body.dark-mode .task-text {
-    color: #f5f7ff;
-}
-
-
-body.dark-mode .task-text.completed {
-    color: #93a4c0;
-}
-
-
-body.dark-mode #allFilter,
-body.dark-mode #activeFilter,
-body.dark-mode #completedFilter {
-    background-color: #172237;
-    color: #f5f7ff;
-    border-color: #2c3b56;
-}
-
-
-body.dark-mode #allFilter.active,
-body.dark-mode #activeFilter.active,
-body.dark-mode #completedFilter.active {
-    background-color: #c4f536;
-    color: #101820;
-}
-
-
-body.dark-mode #themeToggle {
-    background-color: #202b40;
-    border-color: #34435d;
-}
-body.dark-mode #noTask {
-    color: #93a4c0;
-}
-
-@media (max-width: 600px) {
-
+@media (min-width: 601px) and (max-width: 900px) {
     .page-container {
-        padding: 20px 12px;
-        align-items: flex-start;
+        padding: 2rem 1.5rem;
     }
 
     .task-card {
-        width: 100%;
-        box-sizing: border-box;
-        padding: 24px 16px;
+        padding: 2rem;
     }
 
     h1 {
-        font-size: 30px;
+        font-size: 2.125rem;
     }
+}
+
+/* 12. Mobile layout */
+
+@media (max-width: 600px) {
+    .page-container {
+        align-items: flex-start;
+        padding: 1.25rem 0.75rem;
+    }
+
+    .task-card {
+        padding: 1.5rem 1rem;
+        border-radius: 16px;
+    }
+
+    h1 {
+        font-size: 1.875rem;
+    }
+
     .subtitle {
-        font-size: 16px;
-        margin-bottom: 24px;
+        margin-bottom: 1.5rem;
+        font-size: 1rem;
     }
 
     #taskform {
-        gap: 8px;
+        gap: 0.5rem;
     }
 
     #taskInput {
-        padding: 12px 10px;
-        font-size: 15px;
-        min-width: 0;
+        padding: 0.75rem 0.625rem;
+        font-size: 0.9375rem;
     }
 
     #addButton {
-        padding: 12px 14px;
-        font-size: 15px;
-        flex-shrink: 0;
+        padding: 0.75rem 0.875rem;
+        font-size: 0.9375rem;
     }
+
     .filter-buttons {
-        gap: 8px;
-        flex-wrap: wrap;
+        gap: 0.5rem;
     }
 
     .filter-button {
-        padding: 10px 14px;
-        font-size: 14px;
+        padding: 0.625rem 0.875rem;
+        font-size: 0.875rem;
     }
-
 
     #taskList li {
-        gap: 10px;
-        padding: 10px;
+        gap: 0.625rem;
+        padding: 0.625rem;
     }
 
-   
     .task-text {
-        font-size: 15px;
-        min-width: 0;
-        overflow-wrap: anywhere;
+        font-size: 0.9375rem;
     }
 
-   
+    .delete-button {
+        padding: 0.375rem;
+        font-size: 1.375rem;
+    }
+
     .task-footer {
         flex-wrap: wrap;
-        gap: 10px;
+        gap: 0.625rem;
+    }
+
+    #clearCompleted {
+        padding: 0.625rem 0.875rem;
+        font-size: 0.875rem;
     }
 }
