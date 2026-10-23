@@ -1,4 +1,5 @@
-
+const TASKS_STORAGE_KEY = "tasks";
+const THEME_STORAGE_KEY = "theme";
 const taskForm = document.getElementById("taskform");
 const taskInput = document.getElementById("taskInput");
 const taskList = document.getElementById("taskList");
@@ -13,7 +14,7 @@ const result = document.getElementById("result");
 // Set the theme when the website opens
 
 function setTheme() {
-    if (localStorage.getItem("theme") === "dark") {
+    if (localStorage.getItem(THEME_STORAGE_KEY) === "dark") {
         document.body.classList.add("dark-mode");
         themeToggle.textContent = "☀️";
         themeToggle.setAttribute("aria-label", "Switch to light mode");
@@ -29,9 +30,9 @@ setTheme();
 
 themeToggle.addEventListener("click", function() {
     if (document.body.classList.contains("dark-mode")) {
-        localStorage.setItem("theme", "light");
+        localStorage.setItem(THEME_STORAGE_KEY, "light");
     } else {
-        localStorage.setItem("theme", "dark");
+        localStorage.setItem(THEME_STORAGE_KEY, "dark");
     }
 
     setTheme();
@@ -43,7 +44,7 @@ function loadTasks() {
     let savedTasks;
 
     try {
-        savedTasks = JSON.parse(localStorage.getItem("tasks"));
+        savedTasks = JSON.parse(localStorage.getItem(TASKS_STORAGE_KEY));
     } catch (error) {
         savedTasks = null;
     }
@@ -57,7 +58,7 @@ function loadTasks() {
             { id: 64, text: "Make it look good", completed: false }
         ];
 
-        localStorage.setItem("tasks", JSON.stringify(savedTasks));
+        localStorage.setItem(TASKS_STORAGE_KEY, JSON.stringify(savedTasks));
     }
 
     savedTasks.forEach(function(item) {
@@ -72,35 +73,23 @@ function loadTasks() {
 let tasks = loadTasks();
 
 function saveTasks() {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
+    localStorage.setItem(TASKS_STORAGE_KEY, JSON.stringify(tasks));
 }
-
-let newId = Date.now();
 let currentFilter = "all";
+// Handle all filter button clicks in one listener.
+const filterButtons = document.getElementById("filterButtons");
 
-// Filter button events
+filterButtons.addEventListener("click", function(event) {
+    const selectedFilter = event.target.dataset.filter;
 
-allFilter.addEventListener("click", function() {
-    currentFilter = "all";
-    filterTasks();
-});
-
-activeFilter.addEventListener("click", function() {
-    currentFilter = "active";
-    filterTasks();
-});
-
-completedFilter.addEventListener("click", function() {
-    currentFilter = "completed";
-    filterTasks();
+    if (selectedFilter) {
+        currentFilter = selectedFilter;
+        filterTasks();
+    }
 });
 
 // The one shared task-rendering function
-let shouldShowDeleteMessage = false;
-
-function renderTasks(showDeleteMessage) {
-    shouldShowDeleteMessage = showDeleteMessage;
-
+function renderTasks() {
     taskList.innerHTML = "";
 
     const filteredTasks = tasks.filter(function(task) {
@@ -164,32 +153,19 @@ taskList.addEventListener("change", function(event) {
     const taskId = li.dataset.taskId;
 
     toggleTask(taskId, event.target.checked);
-
-    li.querySelector(".task-text").classList.toggle(
-        "completed",
-        event.target.checked
-    );
 });
-
 // Delete a task
-
 function deleteTask(taskId) {
     tasks = tasks.filter(function(item) {
         return String(item.id) !== taskId;
     });
 
     saveTasks();
+    result.textContent = "Task deleted successfully!";
 
-    if (shouldShowDeleteMessage) {
-        result.textContent = "Task deleted successfully!";
-    }
-
-    renderTasks(shouldShowDeleteMessage);
-    updateNoTaskMessage();
-    updateTaskCount();
     filterTasks();
+    updateTaskCount();
 }
-
 // Handle delete clicks using event delegation
 
 taskList.addEventListener("click", function(event) {
@@ -201,14 +177,13 @@ taskList.addEventListener("click", function(event) {
 
     const li = deleteButton.closest("li");
     const taskId = li.dataset.taskId;
-
     deleteTask(taskId);
 });
 
 // Filter tasks
 
 function filterTasks() {
-    renderTasks(shouldShowDeleteMessage);
+    renderTasks();
     updateFilterButtons();
     updateNoTaskMessage();
 }
@@ -244,16 +219,16 @@ function updateTaskCount() {
 }
 
 // Add a task
-
-function addTask() {
+function addTask()
+{
     const taskText = taskInput.value.trim();
 
-    if (taskText === "") {
+    if (taskText === "") 
+        {
         result.textContent = "Please enter a task.";
         taskInput.focus();
         return;
     }
-
     tasks.push({
         id: crypto.randomUUID(),
         text: taskText,
@@ -261,13 +236,8 @@ function addTask() {
     });
 
     result.textContent = "Task added successfully!";
-
     saveTasks();
-
-    renderTasks(true);
-
     taskInput.value = "";
-    updateNoTaskMessage();
     filterTasks();
     updateTaskCount();
 }
@@ -278,7 +248,6 @@ taskForm.addEventListener("submit", function(event) {
     addTask();
 });
 // Clear completed tasks
-
 function clearCompletedTasks() {
     const completedCount = tasks.filter(function(item) {
         return item.completed === true;
@@ -295,21 +264,14 @@ function clearCompletedTasks() {
     }
 
     saveTasks();
-
-    renderTasks(true);
-
-    updateNoTaskMessage();
-    updateTaskCount();
     filterTasks();
+    updateTaskCount();
 }
-
 // Handle clear completed button click
 clearCompleted.addEventListener("click", function() {
     clearCompletedTasks();
 });
 // Render tasks when the website first opens
 
-renderTasks(false);
-updateNoTaskMessage();
-updateFilterButtons();
+filterTasks();
 updateTaskCount();
