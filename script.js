@@ -172,6 +172,8 @@ taskForm.addEventListener("submit", function(event) {
 const taskText = taskInput.value.trim();
 if (taskText === "")
      {
+    result.textContent = "Please enter a task.";
+    taskInput.focus();
     return;
      }
 tasks.push({
