@@ -14,25 +14,25 @@ const result = document.getElementById("result");
 if (localStorage.getItem("theme") === "dark") {
     document.body.classList.add("dark-mode");
     themeToggle.textContent = "☀️";
-} else     
-{
+    themeToggle.setAttribute("aria-label", "Switch to light mode");
+} else {
     themeToggle.textContent = "🌙";
+    themeToggle.setAttribute("aria-label", "Switch to dark mode");
 }
-
 //whatt happens when u click the button?? //
 themeToggle.addEventListener("click", function() {
 
     document.body.classList.toggle("dark-mode"); 
     //adds the class if missing, or removes it if present. //html e CSS er Class thakte pare, dark-mode is there or not ?? the toggle decide then change ,
-
-    if (document.body.classList.contains("dark-mode")) //classList.contains() — check whether a class exists. 
-         {
-        themeToggle.textContent = "☀️";
-        localStorage.setItem("theme", "dark");
-    } else {
-        themeToggle.textContent = "🌙";
-        localStorage.setItem("theme", "light");
-    }
+if (document.body.classList.contains("dark-mode")) {
+    themeToggle.textContent = "☀️";
+    localStorage.setItem("theme", "dark");
+    themeToggle.setAttribute("aria-label", "Switch to light mode");
+} else {
+    themeToggle.textContent = "🌙";
+    localStorage.setItem("theme", "light");
+    themeToggle.setAttribute("aria-label", "Switch to dark mode");
+}
 
 });
 
@@ -181,6 +181,7 @@ tasks.push({
     text: taskText,
     completed: false
 });
+result.textContent = "Task added successfully!";
 
     localStorage.setItem("tasks", JSON.stringify(tasks));
     taskList.innerHTML = "";
@@ -223,6 +224,8 @@ for (let i = 0; i < tasks.length; i++) {
 
     localStorage.setItem("tasks", JSON.stringify(tasks));
    li.remove();
+   result.textContent = "Task deleted successfully!";
+
    updateNoTaskMessage();
    updateTaskCount();
 });
@@ -237,9 +240,20 @@ updateTaskCount();
 });
 
 clearCompleted.addEventListener("click", function() {
+        const completedCount = tasks.filter(function(item) {
+        return item.completed === true;
+    }).length;
     tasks = tasks.filter(function(item) {
+        
         return item.completed === false;
     });
+    if (completedCount > 0)
+         {
+    result.textContent = "Completed tasks cleared successfully!";
+         } else
+         {
+    result.textContent = "There are no completed tasks to clear.";
+         }
 
     localStorage.setItem("tasks", JSON.stringify(tasks));
 
@@ -282,6 +296,7 @@ clearCompleted.addEventListener("click", function() {
 
             localStorage.setItem("tasks", JSON.stringify(tasks));
             li.remove();
+            result.textContent = "Task deleted successfully!";
             updateNoTaskMessage();
             updateTaskCount();
         });
