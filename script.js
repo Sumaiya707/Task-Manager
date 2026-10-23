@@ -6,6 +6,8 @@ const allFilter = document.getElementById("allFilter");
 const activeFilter = document.getElementById("activeFilter");
 const completedFilter = document.getElementById("completedFilter");
 const themeToggle = document.getElementById("themeToggle");
+const clearCompleted = document.getElementById("clearCompleted");
+const result = document.getElementById("result");
 
 //what happens when the website opens ??????//
 
@@ -231,3 +233,63 @@ updateNoTaskMessage();
 filterTasks();
 updateTaskCount();
 });
+
+clearCompleted.addEventListener("click", function() {
+    tasks = tasks.filter(function(item) {
+        return item.completed === false;
+    });
+
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+
+    taskList.innerHTML = "";
+
+    for (let i = 0; i < tasks.length; i++) {
+        const li = document.createElement("li");
+        const taskId = tasks[i].id;
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.className = "task-checkbox";
+        checkbox.checked = tasks[i].completed;
+
+        const span = document.createElement("span");
+        span.className = "task-text";
+        span.textContent = tasks[i].text;
+        span.classList.toggle("completed", checkbox.checked);
+
+        checkbox.addEventListener("change", function() {
+            const task = tasks.find(function(item) {
+                return item.id === taskId;
+            });
+
+            task.completed = checkbox.checked;
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+            updateTaskCount();
+            span.classList.toggle("completed", checkbox.checked);
+            filterTasks();
+        });
+
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "🗑";
+        deleteButton.className = "delete-button";
+
+        deleteButton.addEventListener("click", function() {
+            tasks = tasks.filter(function(item) {
+                return item.id !== taskId;
+            });
+
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+            li.remove();
+            updateNoTaskMessage();
+            updateTaskCount();
+        });
+
+        li.append(checkbox, span, deleteButton);
+        taskList.appendChild(li);
+    }
+
+    updateNoTaskMessage();
+    updateTaskCount();
+    filterTasks();
+});
+
