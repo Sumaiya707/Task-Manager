@@ -103,24 +103,32 @@ function renderTasks() {
 
         return true;
     });
-
     for (let i = 0; i < filteredTasks.length; i++) {
-        const li = document.createElement("li");
-        li.dataset.taskId = filteredTasks[i].id;
+    const li = document.createElement("li");
+    li.dataset.taskId = filteredTasks[i].id;
 
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.className = "task-checkbox";
-        checkbox.checked = filteredTasks[i].completed || false;
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.className = "task-checkbox";
+    checkbox.checked = filteredTasks[i].completed || false;
 
+    checkbox.setAttribute(
+        "aria-label",
+        "Mark task as complete: " + filteredTasks[i].text
+    );
         const span = document.createElement("span");
         span.className = "task-text";
         span.textContent = filteredTasks[i].text;
         span.classList.toggle("completed", checkbox.checked);
 
         const deleteButton = document.createElement("button");
+        deleteButton.type = "button";
         deleteButton.textContent = "🗑";
         deleteButton.className = "delete-button";
+        deleteButton.setAttribute(
+    "aria-label",
+    "Delete task: " + filteredTasks[i].text
+);
 
         li.append(checkbox, span, deleteButton);
         taskList.appendChild(li);
@@ -170,11 +178,9 @@ function deleteTask(taskId) {
 
 taskList.addEventListener("click", function(event) {
     const deleteButton = event.target.closest(".delete-button");
-
     if (!deleteButton || !taskList.contains(deleteButton)) {
         return;
     }
-
     const li = deleteButton.closest("li");
     const taskId = li.dataset.taskId;
     deleteTask(taskId);
@@ -190,11 +196,18 @@ function filterTasks() {
 
 // Update the selected filter button
 
+
 function updateFilterButtons() {
     allFilter.classList.toggle("active", currentFilter === "all");
+    allFilter.setAttribute("aria-pressed", currentFilter === "all");
+
     activeFilter.classList.toggle("active", currentFilter === "active");
+    activeFilter.setAttribute("aria-pressed", currentFilter === "active");
+
     completedFilter.classList.toggle("active", currentFilter === "completed");
+    completedFilter.setAttribute("aria-pressed", currentFilter === "completed");
 }
+
 
 // Show or hide the empty-state message
 
