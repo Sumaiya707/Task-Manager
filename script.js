@@ -10,60 +10,70 @@ const themeToggle = document.getElementById("themeToggle");
 const clearCompleted = document.getElementById("clearCompleted");
 const result = document.getElementById("result");
 
-// What happens when the website opens?
+// Set the theme when the website opens
 
-if (localStorage.getItem("theme") === "dark") {
-    document.body.classList.add("dark-mode");
-    themeToggle.textContent = "☀️";
-    themeToggle.setAttribute("aria-label", "Switch to light mode");
-} else {
-    themeToggle.textContent = "🌙";
-    themeToggle.setAttribute("aria-label", "Switch to dark mode");
-}
-
-// What happens when you click the theme button?
-
-themeToggle.addEventListener("click", function() {
-    document.body.classList.toggle("dark-mode");
-
-    if (document.body.classList.contains("dark-mode")) {
+function setTheme() {
+    if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark-mode");
         themeToggle.textContent = "☀️";
-        localStorage.setItem("theme", "dark");
         themeToggle.setAttribute("aria-label", "Switch to light mode");
     } else {
+        document.body.classList.remove("dark-mode");
         themeToggle.textContent = "🌙";
-        localStorage.setItem("theme", "light");
         themeToggle.setAttribute("aria-label", "Switch to dark mode");
     }
+}
+setTheme();
+// What happens when you click the theme button?
+// Switch between light and dark mode
+
+themeToggle.addEventListener("click", function() {
+    if (document.body.classList.contains("dark-mode")) {
+        localStorage.setItem("theme", "light");
+    } else {
+        localStorage.setItem("theme", "dark");
+    }
+
+    setTheme();
 });
 
 // Load saved tasks
 
-let tasks;
+function loadTasks() {
+    let savedTasks;
 
-try {
-    tasks = JSON.parse(localStorage.getItem("tasks"));
-} catch (error) {
-    tasks = null;
+    try {
+        savedTasks = JSON.parse(localStorage.getItem("tasks"));
+    } catch (error) {
+        savedTasks = null;
+    }
+
+    if (!Array.isArray(savedTasks)) {
+        savedTasks = [
+            { id: 2, text: "Learn JavaScript", completed: false },
+            { id: 32, text: "Build a to-do list", completed: false },
+            { id: 42, text: "Practice DOM manipulation", completed: false },
+            { id: 51, text: "Save tasks in local storage", completed: false },
+            { id: 64, text: "Make it look good", completed: false }
+        ];
+
+        localStorage.setItem("tasks", JSON.stringify(savedTasks));
+    }
+
+    savedTasks.forEach(function(item) {
+        if (item.completed === undefined) {
+            item.completed = false;
+        }
+    });
+
+    return savedTasks;
 }
 
-if (!Array.isArray(tasks)) {
-    tasks = [
-        { id: 2, text: "Learn JavaScript", completed: false },
-        { id: 32, text: "Build a to-do list", completed: false },
-        { id: 42, text: "Practice DOM manipulation", completed: false },
-        { id: 51, text: "Save tasks in local storage", completed: false },
-        { id: 64, text: "Make it look good", completed: false }
-    ];
+let tasks = loadTasks();
 
+function saveTasks() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
-
-tasks.forEach(function(item) {
-    if (item.completed === undefined) {
-        item.completed = false;
-    }
-});
 
 let newId = Date.now();
 let currentFilter = "all";
@@ -86,13 +96,17 @@ completedFilter.addEventListener("click", function() {
 });
 
 // The one shared task-rendering function
+let shouldShowDeleteMessage = false;
 
 function renderTasks(showDeleteMessage) {
+    shouldShowDeleteMessage = showDeleteMessage;
+
     taskList.innerHTML = "";
 
     for (let i = 0; i < tasks.length; i++) {
         const li = document.createElement("li");
         const taskId = tasks[i].id;
+        li.dataset.taskId = taskId;
 
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
@@ -104,43 +118,81 @@ function renderTasks(showDeleteMessage) {
         span.textContent = tasks[i].text;
         span.classList.toggle("completed", checkbox.checked);
 
-        checkbox.addEventListener("change", function() {
-            const task = tasks.find(function(item) {
-                return item.id === taskId;
-            });
-
-            task.completed = checkbox.checked;
-            updateTaskCount();
-
-            localStorage.setItem("tasks", JSON.stringify(tasks));
-            span.classList.toggle("completed", checkbox.checked);
-            filterTasks();
-        });
-
         const deleteButton = document.createElement("button");
         deleteButton.textContent = "🗑";
         deleteButton.className = "delete-button";
-
-        deleteButton.addEventListener("click", function() {
-            tasks = tasks.filter(function(item) {
-                return item.id !== taskId;
-            });
-
-            localStorage.setItem("tasks", JSON.stringify(tasks));
-            li.remove();
-
-            if (showDeleteMessage) {
-                result.textContent = "Task deleted successfully!";
-            }
-
-            updateNoTaskMessage();
-            updateTaskCount();
-        });
 
         li.append(checkbox, span, deleteButton);
         taskList.appendChild(li);
     }
 }
+// Toggle a task's completed status
+function toggleTask(taskId, isCompleted) {
+    const task = tasks.find(function(item) {
+        return String(item.id) === taskId;
+    });
+
+    if (!task) {
+        return;
+    }
+
+    task.completed = isCompleted;
+
+    saveTasks();
+    updateTaskCount();
+    filterTasks();
+}
+
+// Handle checkbox changes using event delegation
+taskList.addEventListener("change", function(event) {
+    if (!event.target.classList.contains("task-checkbox")) {
+        return;
+    }
+
+    const li = event.target.closest("li");
+    const taskId = li.dataset.taskId;
+
+    toggleTask(taskId, event.target.checked);
+
+    li.querySelector(".task-text").classList.toggle(
+        "completed",
+        event.target.checked
+    );
+});
+
+// Delete a task
+
+function deleteTask(taskId) {
+    tasks = tasks.filter(function(item) {
+        return String(item.id) !== taskId;
+    });
+
+    saveTasks();
+
+    if (shouldShowDeleteMessage) {
+        result.textContent = "Task deleted successfully!";
+    }
+
+    renderTasks(shouldShowDeleteMessage);
+    updateNoTaskMessage();
+    updateTaskCount();
+    filterTasks();
+}
+
+// Handle delete clicks using event delegation
+
+taskList.addEventListener("click", function(event) {
+    const deleteButton = event.target.closest(".delete-button");
+
+    if (!deleteButton || !taskList.contains(deleteButton)) {
+        return;
+    }
+
+    const li = deleteButton.closest("li");
+    const taskId = li.dataset.taskId;
+
+    deleteTask(taskId);
+});
 
 // Filter tasks
 
@@ -194,9 +246,7 @@ function updateTaskCount() {
 
 // Add a task
 
-taskForm.addEventListener("submit", function(event) {
-    event.preventDefault();
-
+function addTask() {
     const taskText = taskInput.value.trim();
 
     if (taskText === "") {
@@ -213,7 +263,7 @@ taskForm.addEventListener("submit", function(event) {
 
     result.textContent = "Task added successfully!";
 
-    localStorage.setItem("tasks", JSON.stringify(tasks));
+    saveTasks();
 
     renderTasks(true);
 
@@ -221,11 +271,16 @@ taskForm.addEventListener("submit", function(event) {
     updateNoTaskMessage();
     filterTasks();
     updateTaskCount();
-});
+}
 
+// Handle form submission
+taskForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+    addTask();
+});
 // Clear completed tasks
 
-clearCompleted.addEventListener("click", function() {
+function clearCompletedTasks() {
     const completedCount = tasks.filter(function(item) {
         return item.completed === true;
     }).length;
@@ -240,15 +295,19 @@ clearCompleted.addEventListener("click", function() {
         result.textContent = "There are no completed tasks to clear.";
     }
 
-    localStorage.setItem("tasks", JSON.stringify(tasks));
+    saveTasks();
 
     renderTasks(true);
 
     updateNoTaskMessage();
     updateTaskCount();
     filterTasks();
-});
+}
 
+// Handle clear completed button click
+clearCompleted.addEventListener("click", function() {
+    clearCompletedTasks();
+});
 // Render tasks when the website first opens
 
 renderTasks(false);
