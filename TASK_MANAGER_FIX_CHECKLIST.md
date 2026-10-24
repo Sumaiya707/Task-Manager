@@ -3,6 +3,7 @@
 Based on the issues listed in `CODE_REVIEW.md`.
 
 ## Phase 1 — Fix JavaScript Bugs
+
 - [x] Remove the test `alert(...)` and all debug `console.log` statements.
 - [x] Fix task deletion so deleted tasks stay deleted after refresh.
 - [x] Add a `completed` property to every task object.
@@ -58,30 +59,30 @@ Based on the issues listed in `CODE_REVIEW.md`.
 
 ## Phase 5 — Improve HTML and Accessibility
 
-- [ ] Remove the blank line before `<!DOCTYPE html>`.
-- [ ] Use semantic `main`, `section`, `header`, `nav`, and `footer` elements appropriately.
-- [ ] Add a visible label to the task input.
-- [ ] Give icon-only delete buttons accessible labels.
-- [ ] Give each checkbox an accessible task-specific label.
-- [ ] Add and update `aria-pressed` on filter buttons.
-- [ ] Add `aria-live="polite"` to the task counter.
-- [ ] Add a meta description and favicon.
-- [ ] Place the theme toggle appropriately in the header.
-- [ ] Use `defer` on the external script.
-- [ ] Add `required` and `maxlength="100"` to the task input.
-- [ ] Use consistent HTML ID naming.
-- [ ] Remove redundant IDs/classes where possible.
+- [x] Remove the blank line before `<!DOCTYPE html>`.
+- [x] Use semantic `main`, `section`, `header`, `nav`, and `footer` elements appropriately.
+- [x] Add a visible label to the task input.
+- [x] Give icon-only delete buttons accessible labels.
+- [x] Give each checkbox an accessible task-specific label.
+- [x] Add and update `aria-pressed` on filter buttons.
+- [x] Add `aria-live="polite"` to the task counter.
+- [x] Add a meta description and favicon.
+- [x] Place the theme toggle appropriately in the header.
+- [x] Use `defer` on the external script.
+- [x] Add `required` and `maxlength="100"` to the task input.
+- [x] Use consistent HTML ID naming.
+- [x] Remove redundant IDs/classes where possible.
 
 ## Phase 6 — Theme Improvements
 
-- [ ] Prevent the light-theme flash when a saved dark theme is loaded.
-- [ ] Consider a small inline script in `<head>` for early theme initialization.
-- [ ] Consider SVG icons instead of emoji-only controls.
-- [ ] Use the system colour preference when no theme is saved.
+- [x] Prevent the light-theme flash when a saved dark theme is loaded.
+- [x] Consider a small inline script in `<head>` for early theme initialization.
+- [x] Consider SVG icons instead of emoji-only controls.
+- [x] Use the system colour preference when no theme is saved.
 
 ## Phase 7 — Project and GitHub Quality
 
-- [ ] Write a complete `README.md` with the app's purpose, features, setup instructions, screenshot, and known issues.
+- [x] Write a complete `README.md` with the app's purpose, features, setup instructions, screenshot, and known issues.
 - [ ] Organize files into `css/` and `js/` folders if appropriate.
 - [ ] Add a suitable `.gitignore`.
 - [ ] Use clear, specific English commit messages.

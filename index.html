@@ -1,88 +1,118 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Organize your tasks, track your progress, and stay productive with this simple to-do list.">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Organize your tasks, track your progress, and stay productive with this simple to-do list."
+    />
 
     <title>My To Do List</title>
+
     <script>
-    if (localStorage.getItem("theme") === "dark") {
-        document.documentElement.classList.add("dark-mode");   }
+      if (
+        localStorage.getItem("theme") === "dark" ||
+        (localStorage.getItem("theme") === null &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.classList.add("dark-mode");
+      }
     </script>
-    
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="favicon.png">
 
-</head>
-<body>
-
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+  </head>
+  <body>
     <main class="page-container">
-        <div class="task-card">
+      <div class="task-card">
+        <header class="heading-row">
+          <h1>My To Do List</h1>
 
-            <header class="heading-row">
-                <h1>My To Do List</h1>
-                <button
-                    type="button"
-                    id="themeToggle"
-                    aria-label="Switch to dark mode">🌙</button>
-            </header>
+          <button
+            type="button"
+            id="themeToggle"
+            aria-label="Switch to dark mode"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              width="20"
+              height="20"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M20 15A8 8 0 0 1 9 4a8 8 0 1 0 11 11Z" />
+            </svg>
+          </button>
+        </header>
 
-            <p class="subtitle">Stay organized and get things done.</p>
+        <p class="subtitle">Stay organized and get things done.</p>
 
-            <form id="taskForm">
-                <label for="taskInput">Task name</label>
-                <input
-                    id="taskInput"
-                    name="task"
-                    type="text"
-                    placeholder="Add a new task..."
-                    required
-                    maxlength="100">
+        <form id="taskForm">
+          <label for="taskInput">Task name</label>
+          <input
+            id="taskInput"
+            name="task"
+            type="text"
+            placeholder="Add a new task..."
+            required
+            maxlength="100"
+          />
 
-                <button id="addButton" type="submit">Add</button>
-            </form>
+          <button class="add-button" type="submit">Add</button>
+        </form>
 
-            <p id="result" role="status"></p>
+        <p id="result" role="status"></p>
 
-            <nav id="filterButtons" class="filter-buttons" aria-label="Filter tasks">
-                <button
-                    id="allFilter"
-                    class="filter-button active"
-                    data-filter="all"
-                    type="button"
-                    aria-pressed="true">All</button>
+        <nav
+          id="filterButtons"
+          class="filter-buttons"
+          aria-label="Filter tasks"
+        >
+          <button
+            id="allFilter"
+            class="filter-button active"
+            data-filter="all"
+            type="button"
+            aria-pressed="true"
+          >
+            All
+          </button>
 
-                <button
-                    id="activeFilter"
-                    class="filter-button"
-                    data-filter="active"
-                    type="button"
-                    aria-pressed="false">Active</button>
+          <button
+            id="activeFilter"
+            class="filter-button"
+            data-filter="active"
+            type="button"
+            aria-pressed="false"
+          >
+            Active
+          </button>
 
-                <button
-                    id="completedFilter"
-                    class="filter-button"
-                    data-filter="completed"
-                    type="button"
-                    aria-pressed="false">Completed</button>
-            </nav>
+          <button
+            id="completedFilter"
+            class="filter-button"
+            data-filter="completed"
+            type="button"
+            aria-pressed="false"
+          >
+            Completed
+          </button>
+        </nav>
 
-            <ul id="taskList"></ul>
+        <ul id="taskList"></ul>
 
-            <p id="noTask">No tasks to show.</p>
+        <p id="noTask">No tasks to show.</p>
 
-            <footer class="task-footer">
-                <p id="taskCount" aria-live="polite">0 active tasks</p>
+        <footer class="task-footer">
+          <p id="taskCount" aria-live="polite">0 active tasks</p>
 
-                <button id="clearCompleted" type="button">
-                    Clear Completed
-                </button>
-            </footer>
-
-        </div>
+          <button id="clearCompleted" type="button">Clear Completed</button>
+        </footer>
+      </div>
     </main>
 
-    <script src="script.js" defer></script>
-</body>
+    <script src="js/script.js" defer></script>
+  </body>
 </html>
