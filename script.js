@@ -13,23 +13,25 @@ const result = document.getElementById("result");
 
 // Set the theme when the website opens
 
+
 function setTheme() {
     if (localStorage.getItem(THEME_STORAGE_KEY) === "dark") {
-        document.body.classList.add("dark-mode");
+        document.documentElement.classList.add("dark-mode");
         themeToggle.textContent = "☀️";
         themeToggle.setAttribute("aria-label", "Switch to light mode");
     } else {
-        document.body.classList.remove("dark-mode");
+        document.documentElement.classList.remove("dark-mode");
         themeToggle.textContent = "🌙";
         themeToggle.setAttribute("aria-label", "Switch to dark mode");
     }
 }
+
 setTheme();
 // What happens when you click the theme button?
 // Switch between light and dark mode
 
 themeToggle.addEventListener("click", function() {
-    if (document.body.classList.contains("dark-mode")) {
+    if (document.documentElement.classList.contains("dark-mode")) {
         localStorage.setItem(THEME_STORAGE_KEY, "light");
     } else {
         localStorage.setItem(THEME_STORAGE_KEY, "dark");
