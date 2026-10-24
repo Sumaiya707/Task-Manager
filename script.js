@@ -1,6 +1,6 @@
 const TASKS_STORAGE_KEY = "tasks";
 const THEME_STORAGE_KEY = "theme";
-const taskForm = document.getElementById("taskform");
+const taskForm = document.getElementById("taskForm");
 const taskInput = document.getElementById("taskInput");
 const taskList = document.getElementById("taskList");
 const noTask = document.getElementById("noTask");
