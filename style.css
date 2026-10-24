@@ -108,7 +108,7 @@ h1 {
 }
 /* 3. Task input and Add button */
 
-#taskform {
+#taskForm {
     display: flex;
     align-items: center;
     gap: 0.875rem;
@@ -382,7 +382,7 @@ input:focus-visible {
         font-size: 1rem;
     }
 
-    #taskform {
+    #taskForm {
         gap: 0.5rem;
     }
 
