@@ -110,6 +110,7 @@ h1 {
 
 #taskform {
     display: flex;
+    align-items: center;
     gap: 0.875rem;
     margin-bottom: 1.375rem;
 }
