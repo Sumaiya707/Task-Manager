@@ -32,7 +32,7 @@
     --card-shadow: 0 20px 50px rgba(30, 40, 60, 0.08);
 }
 
-body.dark-mode {
+html.dark-mode {
     color-scheme: dark;
 
     --page-bg: #0b1220;
@@ -307,7 +307,7 @@ h1 {
     color: #ffffff;
 }
 
-body.dark-mode #clearCompleted:hover {
+html.dark-mode #clearCompleted:hover {
     background: var(--danger-hover-bg);
     color: #ffb0b5;
     border-color: var(--danger-color);
@@ -332,7 +332,7 @@ body.dark-mode #clearCompleted:hover {
     transform: scale(1.05);
 }
 
-body.dark-mode #themeToggle {
+html.dark-mode #themeToggle {
     background: var(--filter-bg);
 }
 
