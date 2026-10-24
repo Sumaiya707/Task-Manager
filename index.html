@@ -7,60 +7,76 @@
 
     <title>My To Do List</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+
 </head>
 <body>
 
-    <div class="page-container">
+    <main class="page-container">
         <div class="task-card">
-<div class="heading-row">
-    <h1>My To Do List</h1>
-    <button
-        type="button"
-        id="themeToggle"
-        aria-label="Switch to dark mode"
-    >🌙</button>
-</div>
 
-<p class="subtitle">Stay organized and get things done.</p>
-            <form id="taskform">
+            <header class="heading-row">
+                <h1>My To Do List</h1>
+                <button
+                    type="button"
+                    id="themeToggle"
+                    aria-label="Switch to dark mode">🌙</button>
+            </header>
+
+            <p class="subtitle">Stay organized and get things done.</p>
+
+            <form id="taskForm">
                 <label for="taskInput">Task name</label>
                 <input
-                     id="taskInput"
-                      name="task"
-                      type="text"
-                      placeholder="Add a new task..."
-                      required maxlength="100">
+                    id="taskInput"
+                    name="task"
+                    type="text"
+                    placeholder="Add a new task..."
+                    required
+                    maxlength="100">
 
                 <button id="addButton" type="submit">Add</button>
             </form>
 
             <p id="result" role="status"></p>
 
-            <div id="filterButtons" class="filter-buttons">
-                <button id="allFilter" class="filter-button active"
-                    data-filter="all" type="button">All</button>
+            <nav id="filterButtons" class="filter-buttons" aria-label="Filter tasks">
+                <button
+                    id="allFilter"
+                    class="filter-button active"
+                    data-filter="all"
+                    type="button"
+                    aria-pressed="true">All</button>
 
-                <button id="activeFilter" class="filter-button"
-                    data-filter="active" type="button">Active</button>
+                <button
+                    id="activeFilter"
+                    class="filter-button"
+                    data-filter="active"
+                    type="button"
+                    aria-pressed="false">Active</button>
 
-                <button id="completedFilter" class="filter-button"
-                    data-filter="completed" type="button">Completed</button>
-            </div>
+                <button
+                    id="completedFilter"
+                    class="filter-button"
+                    data-filter="completed"
+                    type="button"
+                    aria-pressed="false">Completed</button>
+            </nav>
 
             <ul id="taskList"></ul>
 
             <p id="noTask">No tasks to show.</p>
 
-            <div class="task-footer">
+            <footer class="task-footer">
                 <p id="taskCount" aria-live="polite">0 active tasks</p>
 
                 <button id="clearCompleted" type="button">
                     Clear Completed
                 </button>
-            </div>
+            </footer>
 
         </div>
-    </div>
+    </main>
 
     <script src="script.js" defer></script>
 </body>
