@@ -2,7 +2,7 @@
 
 ### Organize your tasks. Focus on what matters. Get things done.
 
-A clean, responsive, and interactive task management web app built with **HTML, CSS, and Vanilla JavaScript**. Designed to make everyday task organization simple, intuitive, and visually appealing.
+A clean, responsive, and interactive task management web application built with **HTML5, CSS3, and Vanilla JavaScript**. Designed to make everyday task organization simple, intuitive, and visually appealing.
 
 <p align="center">
   <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5" />
@@ -21,11 +21,23 @@ A clean, responsive, and interactive task management web app built with **HTML, 
 
 ## 🌿 Overview
 
-Task Manager is a frontend web development project focused on organizing everyday tasks through a simple and intuitive interface.
+Task Manager is a frontend web development project that helps users organize everyday tasks through a simple and intuitive interface.
 
-Create tasks, track completion, filter your task list, and switch between light and dark themes. The application uses browser Local Storage to retain saved information between visits.
+Users can create tasks, track their progress, filter tasks by completion status, and switch between light and dark themes. The application uses the browser's **Local Storage API** to retain tasks and theme preferences between visits.
 
-The goal is to combine practical functionality with a clean user experience while applying core frontend development concepts.
+The project focuses on practical functionality, responsive design, accessibility, and a clean user experience while demonstrating core frontend development concepts.
+
+## 📸 Screenshot
+
+<p align="center">
+  <img src="screenshot.png" alt="Task Manager application showing the task list, filters, and theme toggle" width="800" />
+</p>
+
+<p align="center">
+  <em>Task Manager — a simple and responsive way to organize everyday tasks.</em>
+</p>
+
+> **Note:** Save a screenshot of your running application as `screenshot.png` in the root directory of the repository. Replace the image path above if you use a different filename or folder.
 
 ## 🚀 Features
 
@@ -33,31 +45,41 @@ The goal is to combine practical functionality with a clean user experience whil
   <tr>
     <td width="50%">
       <h3>📝 Task Management</h3>
-      Add tasks and remove tasks you no longer need.
+      Add new tasks and delete tasks that are no longer needed.
     </td>
     <td width="50%">
       <h3>✅ Progress Tracking</h3>
-      Mark tasks as completed or active.
+      Mark tasks as completed or active and update their status whenever needed.
     </td>
   </tr>
   <tr>
     <td width="50%">
-      <h3>🔎 Smart Filtering</h3>
-      Organize your view with All, Active, and Completed filters.
+      <h3>🔎 Task Filtering</h3>
+      View all tasks, only active tasks, or only completed tasks.
     </td>
     <td width="50%">
       <h3>🌙 Theme Switching</h3>
-      Switch between light and dark appearances.
+      Switch between light and dark themes with a dedicated theme toggle.
     </td>
   </tr>
   <tr>
     <td width="50%">
-      <h3>💾 Local Persistence</h3>
-      Keep saved tasks and theme preferences in browser Local Storage.
+      <h3>💾 Data Persistence</h3>
+      Retain tasks and theme preferences using browser Local Storage.
     </td>
     <td width="50%">
-      <h3>📱 Responsive Interface</h3>
-      Adapt the layout for desktop and smaller screens.
+      <h3>📱 Responsive Design</h3>
+      Use the application on desktop computers and smaller screens.
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <h3>🧹 Clear Completed Tasks</h3>
+      Remove completed tasks together using the Clear Completed control.
+    </td>
+    <td width="50%">
+      <h3>♿ Accessibility</h3>
+      Use semantic HTML, accessible control labels, and visible keyboard focus styles.
     </td>
   </tr>
 </table>
@@ -67,26 +89,29 @@ The goal is to combine practical functionality with a clean user experience whil
 | Technology | Purpose |
 |---|---|
 | HTML5 | Page structure and semantic elements |
-| CSS3 | Layout, styling, responsive design, and themes |
-| Vanilla JavaScript | DOM manipulation, event handling, and task logic |
-| Local Storage API | Client-side persistence |
-| Git & GitHub | Version control and repository management |
+| CSS3 | Styling, layout, responsive design, and light/dark themes |
+| Vanilla JavaScript | DOM manipulation, event handling, and task management logic |
+| Local Storage API | Saving tasks and theme preferences in the browser |
+| Git | Tracking changes and managing development history |
+| GitHub | Hosting the repository and managing project versions |
 
-No frontend framework or backend server is required for the basic application.
+No frontend framework, backend server, or package installation is required to run the basic application.
 
 ## ⚡ Getting Started
 
-Run the project locally in a few steps.
+Follow these steps to run the project locally.
 
 ### Prerequisites
 
-- A modern web browser
-- Git (optional if downloading the repository as a ZIP)
-- Visual Studio Code (recommended)
+- A modern web browser, such as Google Chrome, Microsoft Edge, or Firefox.
+- Git (optional if you download the repository as a ZIP file).
+- Visual Studio Code (recommended for editing the project).
 
 ### Installation
 
 **1. Clone the repository**
+
+Open your terminal and run:
 
 ```bash
 git clone https://github.com/Sumaiya707/Task-Manager.git
@@ -98,68 +123,136 @@ git clone https://github.com/Sumaiya707/Task-Manager.git
 cd Task-Manager
 ```
 
-**3. Launch the application**
+**3. Open the project**
 
-Open `index.html` in your browser, or open the project in VS Code and launch it using the Live Server extension.
+Open the project folder in Visual Studio Code:
 
-That's it — no package installation or build process is needed.
+```bash
+code .
+```
+
+Alternatively, open `index.html` directly in your browser.
+
+**4. Run the application**
+
+For a convenient development experience, open the project in VS Code and use the Live Server extension to launch `index.html`.
+
+That's it! No build process or dependency installation is required.
 
 ## 📂 Project Structure
 
 ```text
 Task-Manager/
-├── index.html    # Application structure
-├── style.css     # Styling and responsive layout
-├── script.js     # Application logic and interactions
-└── README.md     # Project documentation
+├── index.html       # Application structure and content
+├── style.css        # Styling, themes, and responsive layout
+├── script.js        # Task management and interaction logic
+├── favicon.png      # Browser tab icon
+├── screenshot.png   # Application screenshot for this README
+└── README.md        # Project documentation
 ```
+
+> The structure above assumes `favicon.png` and `screenshot.png` are stored in the repository's root directory. Adjust the paths if your files are organized differently.
+
+## 🧪 Manual Testing Checklist
+
+Use this checklist to verify the application's main features before publishing changes.
+
+### Task Management
+
+- [ ] Add a task using the input field and Add button.
+- [ ] Verify that an empty or whitespace-only task cannot be added.
+- [ ] Verify that a task longer than the permitted character limit cannot be submitted.
+- [ ] Mark a task as completed using its checkbox.
+- [ ] Mark a completed task as active again.
+- [ ] Delete an individual task.
+- [ ] Clear all completed tasks using the Clear Completed control.
+
+### Filtering and Display
+
+- [ ] Select **All** and verify that active and completed tasks appear.
+- [ ] Select **Active** and verify that only incomplete tasks appear.
+- [ ] Select **Completed** and verify that only completed tasks appear.
+- [ ] Verify that the active filter is visually distinguishable.
+- [ ] Verify that the empty-state message appears when the selected filter has no matching tasks.
+- [ ] Verify that the active task count updates after adding, completing, or deleting tasks.
+
+### Data Persistence
+
+- [ ] Add a task and refresh the page; verify that the task remains.
+- [ ] Complete a task and refresh the page; verify that its completion status remains.
+- [ ] Change the theme and refresh the page; verify that the selected theme remains.
+- [ ] Close and reopen the browser page and verify that saved data is retained.
+
+### Theme, Responsiveness, and Accessibility
+
+- [ ] Switch between light and dark themes.
+- [ ] Verify that the page layout works on a desktop screen.
+- [ ] Verify that the page layout works on a mobile-sized screen.
+- [ ] Navigate through interactive controls using the keyboard.
+- [ ] Verify that keyboard focus is visible.
+- [ ] Verify that the input has a visible label and icon-only buttons have accessible labels.
+- [ ] Verify that the theme toggle's accessible label reflects its action.
+
+## ⚠️ Known Issues and Limitations
+
+- **Browser-specific storage:** Tasks and theme preferences are stored in the current browser's Local Storage. They are not automatically synchronized across browsers, devices, or user accounts.
+- **Local data can be cleared:** Clearing the browser's site data may remove saved tasks and theme preferences.
+- **No backend synchronization:** The application does not currently use a server or database to store user information.
+
+These are current architectural limitations rather than necessarily application bugs. Add any confirmed bugs here as you discover them.
 
 ## 💡 What I Learned
 
-Building this project has helped me practice and develop my understanding of:
+Building this project helped me practice and improve my understanding of:
 
-- Structuring web pages with HTML.
+- Structuring web pages with HTML5 and semantic elements.
 - Styling interfaces with CSS and responsive media queries.
-- Selecting and updating elements through the DOM.
-- Handling user interactions with event listeners.
-- Managing task data with arrays and objects.
-- Implementing task filtering and completion logic.
-- Saving and retrieving data with Local Storage.
-- Using Git branches, commits, and GitHub to manage project changes.
+- Selecting and updating HTML elements through the DOM.
+- Handling user interactions with JavaScript event listeners.
+- Working with arrays and objects to manage task data.
+- Implementing task completion and filtering logic.
+- Saving and retrieving data with the Local Storage API.
+- Improving usability with accessible labels and keyboard focus styles.
+- Using Git, branches, commits, and GitHub to manage project changes.
+- Organizing a frontend project and documenting its functionality.
 
-## 🧪 Quality Checklist
+## 🗺️ Future Improvements
 
-Use these checks to verify the application before release.
-
-- [ ] Tasks can be added and deleted correctly.
-- [ ] Empty task submissions are handled.
-- [ ] Completion status persists after refresh.
-- [ ] Task filters display the correct results.
-- [ ] Task count and empty-state messages update correctly.
-- [ ] Clear Completed removes completed tasks.
-- [ ] Theme preference persists after refresh.
-- [ ] Layout and controls work on mobile and desktop.
-
-## 🗺️ Roadmap
-
-Potential improvements for future versions:
+Potential enhancements for future versions include:
 
 - [ ] Edit existing tasks.
 - [ ] Add due dates and task priorities.
 - [ ] Add search functionality.
+- [ ] Support drag-and-drop task ordering.
 - [ ] Improve accessibility and keyboard navigation.
-- [ ] Add automated tests and code formatting.
+- [ ] Add automated tests.
+- [ ] Introduce code formatting and linting tools.
+- [ ] Consider optional cloud synchronization in a future version.
+
+## 🤝 Contributing
+
+Suggestions, bug reports, and improvements are welcome.
+
+1. Fork the repository.
+2. Create a feature branch for your changes.
+3. Make and test your changes.
+4. Commit your work with a clear, descriptive commit message.
+5. Open a pull request describing the changes.
+
+For bugs or suggestions, you can also [open an issue](https://github.com/Sumaiya707/Task-Manager/issues).
 
 ## 👩‍💻 Author
 
 **Sumaiya**
 
-GitHub: [@Sumaiya707](https://github.com/Sumaiya707)
+- GitHub: [@Sumaiya707](https://github.com/Sumaiya707)
+- Project Repository: [Task Manager](https://github.com/Sumaiya707/Task-Manager)
 
-
+---
 
 <p align="center">
-  <strong>Built with curiosity, consistency, and a passion for learning.</strong>
+  <strong>Built with curiosity, consistency, and a passion for learning. 💚</strong>
   <br />
   If you find this project interesting, consider giving the repository a ⭐
 </p>
+
