@@ -48,7 +48,7 @@ function loadTasks() {
 
   try {
     savedTasks = JSON.parse(localStorage.getItem(TASKS_STORAGE_KEY));
-  } catch (error) {
+  } catch {
     savedTasks = null;
   }
 
