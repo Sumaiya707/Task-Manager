@@ -38,7 +38,7 @@ themeToggle.addEventListener("click", function () {
     localStorage.setItem(THEME_STORAGE_KEY, "dark");
   }
 
-  setTheme();
+  setTheme(); //decides which theme to save and then calls setTheme() to apply it.
 });
 
 // Load saved tasks
