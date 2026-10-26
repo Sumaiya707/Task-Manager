@@ -92,7 +92,7 @@ filterButtons.addEventListener("click", function (event) {
 });
 
 // The one shared task-rendering function
-function renderTasks() {
+function renderTasks() {  //responsible for updating what tasks appear on your webpage
   taskList.innerHTML = "";
 
   const filteredTasks = tasks.filter(function (task) {
