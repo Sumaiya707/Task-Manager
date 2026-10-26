@@ -32,7 +32,7 @@ setTheme();
 // Switch between light and dark mode
 
 themeToggle.addEventListener("click", function () {
-  if (document.documentElement.classList.contains("dark-mode")) {
+  if (document.documentElement.classList.contains("dark-mode")) {  //"Does this class currently exist on the HTML element?"
     localStorage.setItem(THEME_STORAGE_KEY, "light");
   } else {
     localStorage.setItem(THEME_STORAGE_KEY, "dark");
@@ -44,7 +44,7 @@ themeToggle.addEventListener("click", function () {
 // Load saved tasks
 
 function loadTasks() {
-  let savedTasks;
+  let savedTasks;  //savedTasks will hold the tasks that JavaScript gets from the browser's saved data.
 
   try {
     savedTasks = JSON.parse(localStorage.getItem(TASKS_STORAGE_KEY));
