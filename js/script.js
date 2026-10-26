@@ -52,7 +52,7 @@ function loadTasks() {
     savedTasks = null;
   }
 
-  if (!Array.isArray(savedTasks)) {
+  if (!Array.isArray(savedTasks)) {  //“IF savedTasks is NOT a list, run the code inside these curly braces.”
     savedTasks = [
       { id: 2, text: "Learn JavaScript", completed: false },
       { id: 32, text: "Build a to-do list", completed: false },
