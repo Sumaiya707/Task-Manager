@@ -175,6 +175,7 @@ function toggleTask(taskId: string, isCompleted: boolean): void {
 
 // Handle checkbox changes using event delegation
 taskList.addEventListener("change", function (event: Event) {
+  //Listens for change events on the task list and specifies Event as the event parameter type.
   if (!(event.target as HTMLElement).classList.contains("task-checkbox")) {
     return;
   }
