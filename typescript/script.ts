@@ -22,7 +22,6 @@ const clearCompleted = document.getElementById(
   "clearCompleted",
 ) as HTMLButtonElement;
 const result = document.getElementById("result") as HTMLElement;
-
 function setTheme(): void {
   if (localStorage.getItem(THEME_STORAGE_KEY) === "dark") {
     document.documentElement.classList.add("dark-mode");
