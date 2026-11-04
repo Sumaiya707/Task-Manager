@@ -159,10 +159,11 @@ function toggleTask(taskId: string, isCompleted: boolean): void {
   });
 
   if (!task) {
+    //if task is undefined, meaning no task was found with the given taskId, the fucntion will exit early and not attribute the completed status to any task
     return;
   }
 
-  task.completed = isCompleted;
+  task.completed = isCompleted; //updates completd status of task to the value of isCompleted,which is a boolean value that indicates whether the task should be marked as completed or not
 
   saveTasks();
   updateTaskCount();
@@ -183,6 +184,7 @@ taskList.addEventListener("change", function (event: Event) {
 });
 // Delete a task
 function deleteTask(taskId: string): void {
+  //	Function Parameter Types  (taskId: string)
   //taskId is a string
   tasks = tasks.filter(function (item: Task) {
     return String(item.id) !== taskId;
@@ -197,6 +199,7 @@ function deleteTask(taskId: string): void {
 // Handle delete clicks using event delegation
 
 taskList.addEventListener("click", function (event: Event) {
+  //Event Typing	(MouseEvent, Event)
   const deleteButton = (event.target as HTMLElement).closest(".delete-button");
   if (!deleteButton || !taskList.contains(deleteButton)) {
     return;
@@ -280,6 +283,7 @@ function addTask(): void {
 
 // Handle form submission
 taskForm.addEventListener("submit", function (event: Event): void {
+  //Event Typing	(MouseEvent, Event)
   event.preventDefault();
   addTask();
 });
