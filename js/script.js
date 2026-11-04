@@ -32,7 +32,8 @@ setTheme();
 // Switch between light and dark mode
 
 themeToggle.addEventListener("click", function () {
-  if (document.documentElement.classList.contains("dark-mode")) {  //"Does this class currently exist on the HTML element?"
+  if (document.documentElement.classList.contains("dark-mode")) {
+    //"Does this class currently exist on the HTML element?"
     localStorage.setItem(THEME_STORAGE_KEY, "light");
   } else {
     localStorage.setItem(THEME_STORAGE_KEY, "dark");
@@ -44,7 +45,7 @@ themeToggle.addEventListener("click", function () {
 // Load saved tasks
 
 function loadTasks() {
-  let savedTasks;  //savedTasks will hold the tasks that JavaScript gets from the browser's saved data.
+  let savedTasks; //savedTasks will hold the tasks that JavaScript gets from the browser's saved data.
 
   try {
     savedTasks = JSON.parse(localStorage.getItem(TASKS_STORAGE_KEY));
@@ -52,7 +53,8 @@ function loadTasks() {
     savedTasks = null;
   }
 
-  if (!Array.isArray(savedTasks)) {  //“IF savedTasks is NOT a list, run the code inside these curly braces.”
+  if (!Array.isArray(savedTasks)) {
+    //“IF savedTasks is NOT a list, run the code inside these curly braces.”
     savedTasks = [
       { id: 2, text: "Learn JavaScript", completed: false },
       { id: 32, text: "Build a to-do list", completed: false },
@@ -92,7 +94,8 @@ filterButtons.addEventListener("click", function (event) {
 });
 
 // The one shared task-rendering function
-function renderTasks() {  //responsible for updating what tasks appear on your webpage
+function renderTasks() {
+  //responsible for updating what tasks appear on your webpage
   taskList.innerHTML = "";
 
   const filteredTasks = tasks.filter(function (task) {
@@ -108,21 +111,21 @@ function renderTasks() {  //responsible for updating what tasks appear on your w
   });
   for (let i = 0; i < filteredTasks.length; i++) {
     const li = document.createElement("li");
-    li.dataset.taskId = filteredTasks[i].id;
+    li.dataset.taskId = filteredTasks[i].id; //add a data attribute to the li element to store tasks id for later
 
-    const checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.className = "task-checkbox";
-    checkbox.checked = filteredTasks[i].completed || false;
+    const checkbox = document.createElement("input"); //create a new input element for checkboxes
+    checkbox.type = "checkbox"; //set the type of input to checkbox
+    checkbox.className = "task-checkbox"; //add a class name to checkbox for styling and event handling
+    checkbox.checked = filteredTasks[i].completed || false; //set cheked task true or flase as per completed status of task in filtered tasks array
 
     checkbox.setAttribute(
       "aria-label",
       "Mark task as complete: " + filteredTasks[i].text,
     );
-    const span = document.createElement("span");
-    span.className = "task-text";
-    span.textContent = filteredTasks[i].text;
-    span.classList.toggle("completed", checkbox.checked);
+    const span = document.createElement("span"); //Create a new span element to hold task text.
+    span.className = "task-text"; //add class name to the span element for styling
+    span.textContent = filteredTasks[i].text; //set text of spent to the task text from the filtered tasks array
+    span.classList.toggle("completed", checkbox.checked); //add the "completed" class to span if checkbox is checked
 
     const deleteButton = document.createElement("button");
     deleteButton.type = "button";
