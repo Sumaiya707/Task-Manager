@@ -17,7 +17,7 @@ const activeFilter = document.getElementById(
 const completedFilter = document.getElementById(
   "completedFilter",
 ) as HTMLButtonElement;
-const themeToggle = document.getElementById("themeToggle") as HTMLButtonElement;
+const themeToggle = document.getElementById("themeToggle") as HTMLButtonElement; //type assertion, html button element
 const clearCompleted = document.getElementById(
   "clearCompleted",
 ) as HTMLButtonElement;
@@ -50,6 +50,7 @@ themeToggle.addEventListener("click", function (): void {
 // Load saved tasks
 
 function loadTasks(): Task[] {
+  //function loadtasks returns array of task objects
   //union type
   let savedTasks: Task[] | null; //savedTasks will hold the tasks that JavaScript gets from the browser's saved data.
 
@@ -66,6 +67,7 @@ function loadTasks(): Task[] {
   if (!Array.isArray(savedTasks)) {
     //“IF savedTasks is NOT a list, run the code inside these curly braces.”
     savedTasks = [
+      //if theres no tasks saved in local ,it will create a default list of tasks and save them in local storage
       { id: 2, text: "Learn JavaScript", completed: false },
       { id: 32, text: "Build a to-do list", completed: false },
       { id: 42, text: "Practice DOM manipulation", completed: false },
@@ -78,16 +80,16 @@ function loadTasks(): Task[] {
 
   savedTasks.forEach(function (item: Task): void {
     if (item.completed === undefined) {
-      item.completed = false;
+      item.completed = false; //if completed property missing ,it will set it to false for that task object
     }
   });
 
-  return savedTasks;
+  return savedTasks; //returns the array of task objects
 }
-let tasks: Task[] = loadTasks();
+let tasks: Task[] = loadTasks(); //tasks is an array of task objects that is initialized by calling the loadTasks() function
 
 function saveTasks(): void {
-  localStorage.setItem(TASKS_STORAGE_KEY, JSON.stringify(tasks));
+  localStorage.setItem(TASKS_STORAGE_KEY, JSON.stringify(tasks)); //save the tasks array to local storage as a JSON string
 }
 let currentFilter: string = "all";
 
@@ -95,11 +97,12 @@ let currentFilter: string = "all";
 const filterButtons = document.getElementById("filterButtons") as HTMLElement;
 
 filterButtons.addEventListener("click", function (event: MouseEvent) {
-  // telling typscript its a mouse event click
+  //event parameter. telling typescript its a mouse event click
   const selectedFilter = (event.target as HTMLElement).dataset.filter;
 
   if (selectedFilter) {
-    currentFilter = selectedFilter; //
+    //Check if a filter was selected
+    currentFilter = selectedFilter; //update the filter
     filterTasks();
   }
 });
@@ -148,8 +151,8 @@ function renderTasks(): void {
       "Delete task: " + filteredTasks[i]!.text,
     );
 
-    li.append(checkbox, span, deleteButton);
-    taskList.appendChild(li);
+    li.append(checkbox, span, deleteButton); //Add the three elements inside the list item
+    taskList.appendChild(li); //Add the list item to the task list
   }
 }
 // Toggle a task's completed status
@@ -177,7 +180,7 @@ taskList.addEventListener("change", function (event: Event) {
   }
 
   const li = (event.target as HTMLElement).closest("li");
-  const taskId = li!.dataset.taskId; //dataset.taskId is always a string
+  const taskId = li!.dataset.taskId; //dataset.taskId is always a string // non-null assertion !
   toggleTask(taskId!, (event.target as HTMLInputElement).checked);
   //taskId! tells TypeScript that taskId is not undefined
   //checked is a property of HTMLInputElement, not HTMLElement
