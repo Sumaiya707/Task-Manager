@@ -13,7 +13,7 @@ const noTask = document.getElementById("noTask") as HTMLElement;
 const allFilter = document.getElementById("allFilter") as HTMLButtonElement;
 const activeFilter = document.getElementById(
   "activeFilter",
-) as HTMLButtonElement;
+) as HTMLButtonElement; //Type Assertion ,html button element
 const completedFilter = document.getElementById(
   "completedFilter",
 ) as HTMLButtonElement;
@@ -99,7 +99,7 @@ filterButtons.addEventListener("click", function (event: MouseEvent) {
   const selectedFilter = (event.target as HTMLElement).dataset.filter;
 
   if (selectedFilter) {
-    currentFilter = selectedFilter;
+    currentFilter = selectedFilter; //
     filterTasks();
   }
 });
