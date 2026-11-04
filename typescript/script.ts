@@ -217,22 +217,23 @@ function filterTasks(): void {
 // Update the selected filter button
 
 function updateFilterButtons(): void {
-  allFilter.classList.toggle("active", currentFilter === "all");
-  allFilter.setAttribute("aria-pressed", String(currentFilter === "all"));
+  allFilter.classList.toggle("active", currentFilter === "all"); //classList.toggle()This adds or removes a CSS class.
+  allFilter.setAttribute("aria-pressed", String(currentFilter === "all")); //aria-pressed is a boolean attribute that tells if a button is pressed or not.
 
-  activeFilter.classList.toggle("active", currentFilter === "active");
-  activeFilter.setAttribute("aria-pressed", String(currentFilter === "active"));
+  activeFilter.classList.toggle("active", currentFilter === "active"); //
+  activeFilter.setAttribute("aria-pressed", String(currentFilter === "active")); //
 
   completedFilter.classList.toggle("active", currentFilter === "completed");
   completedFilter.setAttribute(
     "aria-pressed",
     String(currentFilter === "completed"),
-  );
+  ); //
 }
 
 // Show or hide the empty-state message
 
 function updateNoTaskMessage(): void {
+  //
   if (taskList.children.length === 0) {
     noTask.style.display = "block";
   } else {
@@ -243,6 +244,7 @@ function updateNoTaskMessage(): void {
 // Update the active task count
 
 function updateTaskCount(): void {
+  //this function counts how many tasks are not completed and updates the taskCount element with that number
   const taskCount = document.getElementById("taskCount") as HTMLElement;
 
   const activeTasks = tasks.filter(function (item: Task) {
@@ -254,16 +256,18 @@ function updateTaskCount(): void {
 
 // Add a task
 function addTask(): void {
-  const taskText: string = taskInput.value.trim();
+  const taskText: string = taskInput.value.trim(); //taskInput.value Gets whatever the user typed into the input field
 
   if (taskText === "") {
+    //Checks whether the user entered nothing
     result.textContent = "Please enter a task.";
-    taskInput.focus();
+    taskInput.focus(); //Automatically puts the cursor back inside the input field
     return;
   }
   tasks.push({
-    id: crypto.randomUUID(),
-    text: taskText,
+    //push() adds a new item to the end of array
+    id: crypto.randomUUID(), //Creates a unique ID for the new task
+    text: taskText, //Stores the text entered by the user
     completed: false,
   });
 
